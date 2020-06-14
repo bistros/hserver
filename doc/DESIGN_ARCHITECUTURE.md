@@ -8,13 +8,16 @@
 
 ### Data Flow
 * 순서
-  1. Grpc요청에서 순수한 Java Request Model을 만든다.
-  2. Java Request Model 로 각 니즈에 맞는 UseCase를 수행한다.
-  3. UseCase의 결과를 순수한 Java Response Model로 만든다.
-  4. Grpc or Http 프로토콜에 맞추어 ViewModel 로 만들어 Return 한다
+  1. Grpc요청에서 순수한 Java Request Model을 만든다. [Binder Interface](https://github.com/taekyung81/hserver/blob/master/src/main/java/com/bistros/hauto/server/application/shared/Binder.java) 
+  2. Java Request Model 로 각 니즈에 맞는 UseCase를 수행한다.  [Usecase Interface](https://github.com/taekyung81/hserver/blob/master/src/main/java/com/bistros/hauto/server/application/shared/Usecase.java#L9)
+  3. UseCase의 결과를 순수한 Java Response Model로 만든다. [Response Interface](https://github.com/taekyung81/hserver/blob/master/src/main/java/com/bistros/hauto/server/application/shared/Response.java)
+  4. Grpc or Http 프로토콜에 맞추어 응답 결과를 만든다 [Presenter Interface](https://github.com/taekyung81/hserver/blob/master/src/main/java/com/bistros/hauto/server/application/shared/Presenter.java)
+    * Http 응답은 [ViewModel Interface](https://github.com/taekyung81/hserver/blob/master/src/main/java/com/bistros/hauto/server/api/v1/http/viewmodel/ViewModel.java)
 
 * Grpc/HTTP 의존성은 1,4단계에서만 연결되고 2,3번은 Request - Usecase - Response 외부 요인과 무관하게 처리된다.
 ![image](arch/arch03.png)
+
+* all 메소드에 http 지원을 하기 위해서는 이렇게 작업하면 된다 https://github.com/taekyung81/hserver/commit/4b51041381b8f38ae55dd18363ae283ba884d7b0
 #### Server Package
 * API Package
   * Http, Grpc에 의존적인 Request 정보를 Pure Java 로 변한하거나
