@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+import "PutPosition.proto";
+
+package com.bistros.hauto.apiv1;
+
+service PutService {
+  rpc put (CarPositionWriteRequestProto) returns (CarPositionWriteResponseProto) {}
+  rpc putStream (stream CarPositionWriteRequestProto) returns (CarPositionWriteResponseProto) {}
+}

@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package com.bistros.hauto.apiv1;
+
+option java_multiple_files = true;
+
+message PositionLogProto {
+    int32 latitude = 1;
+    int32 longitude = 2;
+    google.protobuf.Timestamp eventTime = 3;
+}

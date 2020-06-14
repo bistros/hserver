@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_outer_classname = "CarPositionWriteRequestOuter";
+
+import "PositionLog.proto";
+
+package com.bistros.hauto.apiv1;
+
+message CarPositionWriteRequestProto {
+    string id =1;
+    com.bistros.hauto.apiv1.PositionLogProto position = 2;
+}
+
+// 데이터 저장 결과
+message CarPositionWriteResponseProto {
+    string id = 1;
+    string result = 2;
+}

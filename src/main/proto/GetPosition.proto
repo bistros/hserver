@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_outer_classname = "GetPositionRequestOuter";
+
+import "google/protobuf/timestamp.proto";
+import "PositionLog.proto";
+
+package com.bistros.hauto.apiv1;
+
+message GetPositionRequestProto {
+    string id =1;
+    google.protobuf.Timestamp eventTime = 10;
+}
+
+message GetPositionResponseProto {
+    string id = 1;
+    com.bistros.hauto.apiv1.PositionLogProto position = 2;
+}
+
+message GetPositionResponseListProto {
+    repeated com.bistros.hauto.apiv1.GetPositionResponseProto results = 1;
+}
+
+message NoParam {}

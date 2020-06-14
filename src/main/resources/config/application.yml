@@ -1,0 +1,19 @@
+spring.profiles.active: local
+# Prevent the embedded Tomcat from opening a TCP/IP port.
+server.port: -1
+spring:
+  main:
+    banner-mode: off
+---
+spring.profiles: local
+armeria:
+  ports:
+    - port: 8081
+      protocol: HTTP
+
+
+
+app:
+  client:
+    size: 2  # 생성할 자동차 시물레이터 갯수(Count)
+    time: 3  # 각 자동차가 몇번에 한번 위치 데이터를 생성할 것인가?(Second)

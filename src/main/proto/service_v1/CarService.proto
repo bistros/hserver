@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+import "GetPosition.proto";
+import "GetHistory.proto";
+import "SearchAround.proto";
+
+package com.bistros.hauto.apiv1;
+
+service CarService {
+  rpc get (GetPositionRequestProto) returns (GetPositionResponseProto) {}
+  rpc history (GetRouteRequestProto) returns (GetRouteResponseProto) {}
+  rpc search (SearchAroundRequestProto) returns (SearchAroundResponseProto) {}
+  rpc all (NoParam) returns (GetPositionResponseListProto) {}
+}

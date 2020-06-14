@@ -1,0 +1,112 @@
+buildscript {
+    repositories {
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url 'https://repo.spring.io/plugins-release' }
+    }
+    dependencies {
+        classpath('com.google.protobuf:protobuf-gradle-plugin:0.8.12')
+        classpath('org.springframework.boot:spring-boot-gradle-plugin:2.3.0.RELEASE')
+        classpath('io.spring.gradle:dependency-management-plugin:1.0.9.RELEASE')
+        classpath('io.freefair.gradle:lombok-plugin:5.1.0')
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'com.google.protobuf'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: "io.freefair.lombok"
+
+group = "com.bistros"
+version = "1.0.0-SNAPSHOT"
+
+
+repositories {
+    mavenCentral()
+    jcenter()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'io.micrometer:micrometer-bom:1.5.1'
+        mavenBom 'io.netty:netty-bom:4.1.50.Final'
+        mavenBom 'com.linecorp.armeria:armeria-bom:0.99.6'
+        mavenBom 'org.junit:junit-bom:5.6.2'
+    }
+}
+
+dependencies {
+    implementation 'com.linecorp.armeria:armeria-spring-boot-starter'
+    implementation 'com.linecorp.armeria:armeria-grpc'
+    implementation 'io.projectreactor:reactor-core:3.3.5.RELEASE'
+    implementation 'org.hibernate.validator:hibernate-validator'
+    implementation 'com.github.grumlimited:geocalc:0.5.8' //거리 계산
+    implementation 'com.google.guava:guava:29.0-jre'
+    implementation 'org.apache.commons:commons-lang3:3.10'
+    implementation 'com.fasterxml.jackson.module:jackson-module-parameter-names'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor:2.3.0.RELEASE'
+
+    testRuntimeOnly 'org.junit.platform:junit-platform-commons'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    testRuntimeOnly 'org.junit.vintage:junit-vintage-engine'
+
+    testImplementation 'junit:junit:4.13'
+    testImplementation 'org.assertj:assertj-core:3.16.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params'
+    testImplementation 'net.javacrumbs.json-unit:json-unit-fluent:2.17.0'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.3.0.RELEASE'
+
+
+}
+
+tasks.withType(JavaCompile) {
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+    options.encoding = 'UTF-8'
+    options.debug = true
+    options.compilerArgs += '-parameters'
+}
+
+tasks.withType(Test) {
+    useJUnitPlatform()
+}
+
+
+protobuf {
+    // Configure the protoc executable.
+    protoc {
+        // Download from the repository.
+        artifact = 'com.google.protobuf:protoc:3.11.4'
+    }
+
+    // Locate the codegen plugins.
+    plugins {
+        // Locate a plugin with name 'grpc'.
+        grpc {
+            // Download from the repository.
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.29.0'
+        }
+    }
+    generateProtoTasks {
+        ofSourceSet('main')*.plugins {
+            grpc {}
+        }
+    }
+}
+
+
+bootJar {
+    mainClassName = 'app.Server'
+    manifest {
+        attributes(
+                'Main-Class': 'org.springframework.boot.loader.PropertiesLauncher'
+        )
+    }
+}

@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_outer_classname = "SearchAroundResponseOuter";
+
+import "GetPosition.proto";
+
+package com.bistros.hauto.apiv1;
+
+// 검색을 요청하는 Grpc Request Model
+message SearchAroundRequestProto {
+    int32 latitude = 1;
+    int32 longitude = 2;
+    int32 radius = 3;
+}
+
+
+// 검색 결과 distance 는 미터단위이다
+message SearchAroundResponseProto {
+    repeated SearchResponse results = 1;
+
+    message SearchResponse {
+        com.bistros.hauto.apiv1.GetPositionResponseProto carPosition = 1;
+        int32 distance = 2;
+    }
+}
+
+
