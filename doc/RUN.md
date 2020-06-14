@@ -33,7 +33,7 @@ java -Dloader.main=app.Generator -jar server.jar
   * -Dapp.client.time=2 : 각 시물레이터가 2초 주기로 위치 정보를 업데이트 합니다
   * 예시) 3개의 자동차 시물레이터가 2초마다 데이터를 생성합니다.
     ```
-    java -Dloader.main=app.Generator -Dapp.client.size=10 -Dapp.client.time=2 -jar build/libs/hauto-1.0.0-SNAPSHOT.jar
+    java -Dloader.main=app.Generator -Dapp.client.size=10 -Dapp.client.time=2 -jar server.jar
     ``` 
 ### 4. 실행 화면
 * 좌측 상단 : 서버 실행 화면 
