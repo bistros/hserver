@@ -8,7 +8,7 @@
    이런 로그가 출력되면서 서버가 시작됩니다. 기본 포트는 `8081` 입니다.
 
    ![image](run/server1.png)
-* T1, T2, T3 ID를 가지는 차량 3대의 테스트 정보가 기본 적재됩니다. --skipdata 옵션을 추가하세요.
+* T1, T2, T3 ID를 가지는 차량 3대의 테스트 정보가 기본 적재됩니다. 데이터 데이터가 필요 없다면 --skipdata 옵션을 추가하세요.
     ```
     java -jar server.jar  --skipdata
     
