@@ -1,11 +1,14 @@
 package com.bistros.hauto.server.api.v1.http;
 
+import com.bistros.hauto.server.api.v1.http.binder.HttpAllBinder;
 import com.bistros.hauto.server.api.v1.http.binder.HttpGetBinder;
 import com.bistros.hauto.server.api.v1.http.binder.HttpHistoryBinder;
 import com.bistros.hauto.server.api.v1.http.binder.HttpSearchBinder;
+import com.bistros.hauto.server.api.v1.http.viewmodel.GetAllViewModel;
 import com.bistros.hauto.server.api.v1.http.viewmodel.GetViewModel;
 import com.bistros.hauto.server.api.v1.http.viewmodel.HistoryViewModel;
 import com.bistros.hauto.server.api.v1.http.viewmodel.SearchViewModel;
+import com.bistros.hauto.server.application.usecase.GetAllUseCase;
 import com.bistros.hauto.server.application.usecase.GetHistoryUseCase;
 import com.bistros.hauto.server.application.usecase.GetPositionUsecase;
 import com.bistros.hauto.server.application.usecase.SearchAroundUserCase;
@@ -27,6 +30,9 @@ public class HttpServiceImpl {
 
     private final GetHistoryUseCase historyUseCase;
     private final HttpHistoryBinder historyBinder;
+
+    private final GetAllUseCase allUseCase;
+    private final HttpAllBinder allBinder;
 
     @Get("/car/{id}")
     @ProducesJson
@@ -54,6 +60,13 @@ public class HttpServiceImpl {
         GetHistoryUseCase.HistoryRequest request = historyBinder.bind(id, startDate, endDate);
         GetHistoryUseCase.HistoryResponse response = historyUseCase.apply(request);
         return historyBinder.present(response);
+    }
+
+    @Get("/all")
+    @ProducesJson
+    public GetAllViewModel all() {
+        GetAllUseCase.GetAllResponse response = allUseCase.apply(null);
+        return allBinder.present(response);
     }
 
     //HTTP protocol 에서 PUT 은 지원 안함
