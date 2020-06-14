@@ -53,7 +53,7 @@
   * docService : http://127.0.0.1:8081/docs/
 * API Tester Project - https://github.com/taekyung81/hclient
 * 추가 문서
-  * [아키텍쳐](doc/DESIGN_ARCHITECUTURE.md)
-  * [실행 방법과 화면](doc/RUN.md)
-  * [테스트 데이터 생성기와 커맨드 라인 테스터기](doc/DESIGN_CLIENT.md)]
+  * [아키텍쳐](./DESIGN_ARCHITECUTURE.md)
+  * [실행 방법과 화면](./RUN.md)
+  * [테스트 데이터 생성기와 커맨드 라인 테스터기](./DESIGN_CLIENT.md)]
            
